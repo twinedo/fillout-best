@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import { PopupOption } from "../popup-option";
 import { Popup } from "../popup";
+import { PopupNewPage } from "../popup-new-page";
 
 export const CircleAdd = (props: ComponentPropsWithoutRef<"div">) => {
   const [isShowPopup, setIsShowPopup] = useState(false);
@@ -20,7 +20,7 @@ export const CircleAdd = (props: ComponentPropsWithoutRef<"div">) => {
         </div>
       }
     >
-      <PopupOption />
+      <PopupNewPage />
     </Popup>
   );
 };

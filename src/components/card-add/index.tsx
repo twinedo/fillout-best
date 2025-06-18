@@ -1,7 +1,7 @@
 import { FiPlus } from "react-icons/fi";
 import { Popup } from "../popup";
-import { PopupOption } from "../popup-option";
 import { useState } from "react";
+import { PopupNewPage } from "../popup-new-page";
 
 export const CardAdd = () => {
   const baseClasses = `
@@ -22,7 +22,7 @@ export const CardAdd = () => {
         </div>
       }
     >
-      <PopupOption />
+      <PopupNewPage />
     </Popup>
   );
 };
