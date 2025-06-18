@@ -10,7 +10,7 @@ export type TCardStep = {
   text: string;
   isActive?: boolean;
   onOptionPress?: () => void;
-  onClick: () => void
+  onClick?: () => void
 } & ComponentPropsWithoutRef<"div">; 
 
 export const CardStep = (props: TCardStep) => {
