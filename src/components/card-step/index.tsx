@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ComponentPropsWithoutRef, ReactNode, useState } from "react";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { clsx } from "clsx";
 import { useLongPress } from "@/hooks/useLongPress";
@@ -10,7 +10,8 @@ export type TCardStep = {
   text: string;
   isActive?: boolean;
   onOptionPress?: () => void;
-};
+  onClick: () => void
+} & ComponentPropsWithoutRef<"div">; 
 
 export const CardStep = (props: TCardStep) => {
   const {
@@ -19,6 +20,7 @@ export const CardStep = (props: TCardStep) => {
     text = "",
     isActive = false,
     onOptionPress,
+    onClick
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
@@ -73,7 +75,7 @@ export const CardStep = (props: TCardStep) => {
 
   return (
     <div
-      role="button"
+      onClick={onClick}
       className={clsx(
         baseClasses,
         stateClasses.background,

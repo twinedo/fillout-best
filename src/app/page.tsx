@@ -1,11 +1,52 @@
 "use client";
-import { CardAdd, CardStepPopup, LineDashed } from "@/components";
+import { CardAdd, CardStepPopup, CircleAdd, LineDashed } from "@/components";
 import Image from "next/image";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import clsx from "clsx";
+
+type ItemTab = {
+  id: string;
+  text: string;
+  icon: ReactNode;
+};
 
 export default function Home() {
   const [isButtonActive, setIsButtonActive] = useState(false);
+
+  const [selectedPage, setSelectedPage] = useState<ItemTab>({
+    id: "1",
+    text: "Info",
+    icon: <AiOutlineInfoCircle color="#F59D0E" size={16} />,
+  });
+
+  const [menus] = useState([
+    {
+      id: "1",
+      text: "Info",
+      icon: <AiOutlineInfoCircle size={16} />,
+    },
+    {
+      id: "2",
+      text: "Details",
+      icon: <IoDocumentTextOutline size={16} />,
+    },
+    {
+      id: "3",
+      text: "Other",
+      icon: <IoDocumentTextOutline size={16} />,
+    },
+    {
+      id: "4",
+      text: "Ending",
+      icon: <IoIosCheckmarkCircleOutline size={16} />,
+    },
+  ]);
+
+  const [showPlusButton, setShowPlusButton] = useState(false);
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
@@ -60,36 +101,48 @@ export default function Home() {
         <button onClick={() => setIsButtonActive(!isButtonActive)}>
           setIsButtonActive
         </button>
-        <div className="flex flex-row items-center">
-          <CardStepPopup
-            text="Other"
-            leftIcon={<IoDocumentTextOutline />}
-            isSelected={isButtonActive}
-          />
-          <LineDashed />
-          <CardStepPopup
-            text="Other"
-            leftIcon={<IoDocumentTextOutline />}
-            isSelected={isButtonActive}
-          />
-          <LineDashed
-            className="min-w-10 hover:text-red-600"
-            onMouseEnter={() => console.log("ladwdn")}
-          />
-          <CardStepPopup
-            text="Other"
-            leftIcon={<IoDocumentTextOutline />}
-            isSelected={isButtonActive}
-          />
-          <LineDashed />
-          <CardStepPopup
-            text="Other"
-            leftIcon={<IoDocumentTextOutline />}
-            isSelected={isButtonActive}
-          />
-          <LineDashed />
+        <div className="relative flex flex-row items-center">
+          {menus.map((item, index) => (
+            <div key={item.id} className="flex relative">
+              <CardStepPopup
+                key={item.id}
+                text={item.text}
+                leftIcon={item.icon}
+                isSelected={selectedPage.id === item.id}
+                onClick={() => setSelectedPage(item)}
+              />
+              {menus.length - 1 && (
+                <div className="relative">
+                  <LineDashed
+                    className={clsx(
+                      index === 1 && showPlusButton ? "min-w-10" : "min-w-5"
+                    )}
+                    onMouseEnter={() => {
+                      if (index === 1) {
+                        setShowPlusButton(true);
+                        console.log("cak");
+                      } else {
+                        setShowPlusButton(false);
+                      }
+                    }}
+                  />
+                  {index === 1 && showPlusButton && (
+                    <div className="bg-white z-50 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2" onMouseLeave={() => {
+                      if (index === 1) {
+                        setShowPlusButton(false);
+                      } else {
+                        setShowPlusButton(false);
+                      }
+                    }}>
+                      <CircleAdd />
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
 
-          <CardAdd  />
+          <CardAdd />
         </div>
       </footer>
     </div>
