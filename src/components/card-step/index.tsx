@@ -6,6 +6,7 @@ import { useLongPress } from "@/hooks/useLongPress";
 export type TCardStep = {
   containerClassName?: string;
   leftIcon: ReactNode;
+  leftIconClassName?: string;
   text: string;
   isActive?: boolean;
   onOptionPress?: () => void;
@@ -32,7 +33,7 @@ export const CardStep = (props: TCardStep) => {
 
   // Base className
   const baseClasses = `
-    flex cursor-pointer items-center h-8 rounded-lg py-1 px-2.5 gap-2 border-[0.5px]
+    flex cursor-pointer items-center h-8 rounded-lg py-1 px-2.5 gap-2
     transition-all duration-200 ease-in-out
   `;
 
@@ -40,11 +41,11 @@ export const CardStep = (props: TCardStep) => {
     background: isActive 
       ? "bg-white" 
       : isFocused 
-        ? "bg-white hover:bg-white" 
+        ? "bg-white" 
         : "bg-[#9DA4B226] hover:bg-[#9DA4B259]",
     border: isFocused 
-      ? "border-[#2F72E2]" 
-      : isActive ? "border-[0.5px] border-[#E1E1E1]": "border-transparent",
+      ? "border-[0.5px] border-[#2F72E2]" 
+      : isActive ? "border-[0.5px] border-[#E1E1E1]": "",
     shadow: isFocused 
       ? "shadow-[0_0_5px_rgba(47,114,226,0.5)]" 
       : isActive 
@@ -55,7 +56,7 @@ export const CardStep = (props: TCardStep) => {
   // Icon className
   const iconClasses = clsx(
     "w-5 flex justify-center items-center text-xl",
-    (isFocused || isActive) ? "text-yellow-600" : "text-[#8C93A1]"
+    (isFocused || isActive) ? "text-yellow-600" : "text-[#8C93A1]",
   );
 
   // Text className

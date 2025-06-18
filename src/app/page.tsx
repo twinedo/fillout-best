@@ -1,9 +1,9 @@
 "use client";
-import { CardStep } from "@/components";
-import Expandable from "@/components/exp";
+import { CardStepPopup, LineDashed } from "@/components";
 import Image from "next/image";
 import { useState } from "react";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import { FiPlus } from "react-icons/fi";
 
 export default function Home() {
   const [isButtonActive, setIsButtonActive] = useState(false);
@@ -58,45 +58,45 @@ export default function Home() {
         </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-
         <button onClick={() => setIsButtonActive(!isButtonActive)}>
           setIsButtonActive
         </button>
-        <CardStep
-          isActive={isButtonActive}
-          text="Other"
-          leftIcon={<IoDocumentTextOutline />}
-        />
+        <div className="flex flex-row items-center">
+          <CardStepPopup
+            text="Other"
+            leftIcon={<IoDocumentTextOutline />}
+            isSelected={isButtonActive}
+          />
+          <LineDashed />
+          <CardStepPopup
+            text="Other"
+            leftIcon={<IoDocumentTextOutline />}
+            isSelected={isButtonActive}
+          />
+          <LineDashed
+            className="min-w-10 hover:text-red-600"
+            onMouseEnter={() => console.log("ladwdn")}
+          />
+          <CardStepPopup
+            text="Other"
+            leftIcon={<IoDocumentTextOutline />}
+            isSelected={isButtonActive}
+          />
+          <LineDashed />
+          <CardStepPopup
+            text="Other"
+            leftIcon={<IoDocumentTextOutline />}
+            isSelected={isButtonActive}
+          />
+          <LineDashed />
+
+          <CardStepPopup
+            text="Add page"
+            leftIcon={<FiPlus color="#1A1A1A" />}
+            isSelected={isButtonActive}
+            containerClassName="bg-white border-[0.5px] border-[#E1E1E1]"
+            />
+        </div>
       </footer>
     </div>
   );
