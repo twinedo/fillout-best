@@ -48,54 +48,12 @@ export default function Home() {
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start"></main>
+      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start border">
+        <div className="border w-4xl h-[480px] flex">
+            <div className="text-7xl">This is page of <h1 className="font-bold">{selectedPage.text}</h1></div>
+        </div>
+      </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center">
-        {/* <div className="relative flex flex-row items-center">
-          {menus.map((item, index) => (
-            <div key={item.id} className="flex relative">
-              <CardStepPopup
-                key={item.id}
-                text={item.text}
-                leftIcon={item.icon}
-                isSelected={selectedPage.id === item.id}
-                onClick={() => setSelectedPage(item)}
-              />
-              {menus.length - 1 && (
-                <div className="relative">
-                  <LineDashed
-                    className={clsx(
-                      index === 1 && showPlusButton ? "min-w-10" : "min-w-5"
-                    )}
-                    onMouseEnter={() => {
-                      if (index === 1) {
-                        setShowPlusButton(true);
-                        console.log("cak");
-                      } else {
-                        setShowPlusButton(false);
-                      }
-                    }}
-                  />
-                  {index === 1 && showPlusButton && (
-                    <div
-                      className="bg-white z-50 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                      onMouseLeave={() => {
-                        if (index === 1) {
-                          setShowPlusButton(false);
-                        } else {
-                          setShowPlusButton(false);
-                        }
-                      }}
-                    >
-                      <CircleAdd />
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
-
-          <CardAdd />
-        </div> */}
         <DraggableList
           items={menus}
           onReorder={setMenus}
