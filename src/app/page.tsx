@@ -1,9 +1,8 @@
 "use client";
-import { CardStepPopup, LineDashed } from "@/components";
+import { CardAdd, CardStepPopup, LineDashed } from "@/components";
 import Image from "next/image";
 import { useState } from "react";
 import { IoDocumentTextOutline } from "react-icons/io5";
-import { FiPlus } from "react-icons/fi";
 
 export default function Home() {
   const [isButtonActive, setIsButtonActive] = useState(false);
@@ -90,12 +89,7 @@ export default function Home() {
           />
           <LineDashed />
 
-          <CardStepPopup
-            text="Add page"
-            leftIcon={<FiPlus color="#1A1A1A" />}
-            isSelected={isButtonActive}
-            containerClassName="bg-white border-[0.5px] border-[#E1E1E1]"
-            />
+          <CardAdd  />
         </div>
       </footer>
     </div>
