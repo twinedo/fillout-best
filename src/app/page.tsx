@@ -7,9 +7,17 @@ import { HiChevronDoubleDown } from "react-icons/hi";
 import useMenuStore from "@/stores/menuStore";
 import useCirclePlusStore from "@/stores/circlePlus";
 import useAddPopupStore from "@/stores/addPopup";
+import { TbSquareDashed, TbSquareCheckFilled } from "react-icons/tb";
 
 export default function Home() {
-  const { menu, setMenu, setSelectedMenu, selectedMenu } = useMenuStore();
+  const {
+    menu,
+    setMenu,
+    setSelectedMenu,
+    selectedMenu,
+    savePreference,
+    toggleSavePreference,
+  } = useMenuStore();
   const { showPlusButton, setShowPlusButton } = useCirclePlusStore();
 
   const { showAddPopup } = useAddPopupStore();
@@ -34,7 +42,7 @@ export default function Home() {
           </div>
         )}
       </main>
-      <footer className="row-start-3 flex flex-wrap items-center justify-center">
+      <footer className="row-start-3 flex flex-wrap items-center justify-between">
         {menu.length > 0 && (
           <DraggableList
             items={menu}
@@ -53,7 +61,7 @@ export default function Home() {
                 >
                   <CardStepPopup
                     text={item.text}
-                    leftIcon={item.icon}
+                    leftIconKey={item.iconKey}
                     isSelected={selectedMenu?.id === item.id}
                   />
                 </SortableItem>
@@ -98,7 +106,32 @@ export default function Home() {
           </DraggableList>
         )}
         {menu.length > 0 && <LineDashed />}
-        <CardAdd />
+        <div className="flex flex-row items-center gap-x-3">
+          <CardAdd />
+          {menu.length > 0 && (
+            <div className="flex flex-row items-center gap-x-3  text-sm">
+              {savePreference ? (
+                <TbSquareCheckFilled
+                  size={16}
+                  color="black"
+                  onClick={() => toggleSavePreference(false)}
+                />
+              ) : (
+                <TbSquareDashed
+                  size={16}
+                  color="#9DA4B2"
+                  onClick={() => toggleSavePreference(true)}
+                />
+              )}
+              <span
+                className="cursor-pointer hover:text-blue-500"
+                onClick={() => toggleSavePreference(!savePreference)}
+              >
+                Save menu preference
+              </span>
+            </div>
+          )}
+        </div>
       </footer>
     </div>
   );

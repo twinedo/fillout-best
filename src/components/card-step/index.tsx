@@ -1,12 +1,12 @@
-import { ComponentPropsWithoutRef, ReactNode, useState } from "react";
+import { ComponentPropsWithoutRef, useState } from "react";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { clsx } from "clsx";
 import { useLongPress } from "@/hooks/useLongPress";
+import { iconMap } from "@/assets/icons";
 
 export type TCardStep = {
   containerClassName?: string;
-  leftIcon: ReactNode;
-  leftIconClassName?: string;
+  leftIconKey: string;
   text: string;
   isActive?: boolean;
   onOptionPress?: () => void;
@@ -16,7 +16,7 @@ export type TCardStep = {
 export const CardStep = (props: TCardStep) => {
   const {
     containerClassName,
-    leftIcon,
+    leftIconKey,
     text = "",
     isActive = false,
     onOptionPress,
@@ -85,7 +85,7 @@ export const CardStep = (props: TCardStep) => {
       )}
       {...handleInteraction}
     >
-      {leftIcon && <div className={iconClasses}>{leftIcon}</div>}
+      {leftIconKey && <div className={iconClasses}>{iconMap[leftIconKey]}</div>}
 
       <div className={textClasses}>
         {text}

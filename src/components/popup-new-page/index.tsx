@@ -1,14 +1,10 @@
-import { IoBookSharp, IoDocumentText } from "react-icons/io5";
-import { IoIosEye, IoMdLock } from "react-icons/io";
-import { MdPayments } from "react-icons/md";
-import { FaCheckCircle, FaCalendarAlt } from "react-icons/fa";
-import {} from "react-icons/io5";
 import { ReactNode, useState } from "react";
 import clsx from "clsx";
 import { Popup } from "../popup";
 import { PopupInputFormName } from "../popup-input-form-name";
 import useMenuStore from "@/stores/menuStore";
 import { v4 as uuidv4 } from 'uuid';
+import { iconMap } from "@/assets/icons";
 
 type PopupNewPageProps = {
   onClose?: () => void;
@@ -21,49 +17,49 @@ export const PopupNewPage = (props: PopupNewPageProps) => {
   const [optionMenu, setOptionMenu] = useState([
     {
       id: "1",
-      icon: <IoDocumentText color="orange" size={20} />,
+      iconKey: 'form',
       text: "Form",
       subtitle: "Page to collect user input",
       isShowPopup: false,
     },
     {
       id: "2",
-      icon: <IoBookSharp color="blue" size={20} />,
+      iconKey: 'cover',
       text: "Cover",
       subtitle: "Welcome users to your form",
       isShowPopup: false,
     },
     {
       id: "3",
-      icon: <FaCheckCircle color="red" size={20} />,
+      iconKey: "ending",
       text: "Ending",
       subtitle: "Show a thank you page or redirect users",
       isShowPopup: false,
     },
     {
       id: "4",
-      icon: <IoIosEye color="purple" size={20} />,
+      iconKey: 'review',
       text: "Review",
       subtitle: "Let Users Review their submission",
       isShowPopup: false,
     },
     {
       id: "5",
-      icon: <MdPayments color="pink" size={20} />,
+      iconKey: 'payment',
       text: "Payment",
       subtitle: "Collect payment with Stripe",
       isShowPopup: false,
     },
     {
       id: "6",
-      icon: <IoMdLock color="green" size={20} />,
+      iconKey: 'login',
       text: "Login",
       subtitle: "Let Users login with email, password or SSO",
       isShowPopup: false,
     },
     {
       id: "7",
-      icon: <FaCalendarAlt color="black" size={20} />,
+      iconKey: 'scheduling',
       text: "Scheduling",
       subtitle: "Book meeting on your calendar",
       isShowPopup: false,
@@ -82,7 +78,7 @@ export const PopupNewPage = (props: PopupNewPageProps) => {
     const newItem = {
       id: uuidv4(),
       text: name,
-      icon: optionMenu[index].icon,
+      iconKey: optionMenu[index].iconKey,
     };
     setMenu([...menu, newItem]);
     onClickItem(index);
@@ -104,7 +100,7 @@ export const PopupNewPage = (props: PopupNewPageProps) => {
             mainComponent={
               <RowItemIcon
                 key={item.id}
-                icon={item.icon}
+                iconKey={item.iconKey}
                 text={item.text}
                 subtitle={item.subtitle}
                 onClick={() => onClickItem(index)}
@@ -124,13 +120,13 @@ export const PopupNewPage = (props: PopupNewPageProps) => {
 };
 
 const RowItemIcon = ({
-  icon,
+  iconKey,
   text,
   textClassName,
   subtitle,
   ...props
 }: {
-  icon: ReactNode;
+  iconKey: string;
   text: string;
   textClassName?: string;
   subtitle: string;
@@ -140,7 +136,7 @@ const RowItemIcon = ({
       className="cursor-pointer flex flex-row gap-x-3 items-center"
       {...props}
     >
-      {icon}
+      {iconMap[iconKey] }
       <div className="flex flex-col gap-y-2">
         <div
           className={clsx(
