@@ -1,103 +1,103 @@
 "use client";
 import { CardAdd, CardStepPopup, CircleAdd, LineDashed } from "@/components";
-import { ReactNode, useState } from "react";
-import { IoDocumentTextOutline } from "react-icons/io5";
-import { AiOutlineInfoCircle } from "react-icons/ai";
-import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import clsx from "clsx";
 import { DraggableList } from "@/components/dnd/draggable-list";
 import { SortableItem } from "@/components/dnd/sortable-item";
-
-type ItemTab = {
-  id: string;
-  text: string;
-  icon: ReactNode;
-};
+import { HiChevronDoubleDown } from "react-icons/hi";
+import useMenuStore from "@/stores/menuStore";
+import useCirclePlusStore from "@/stores/circlePlus";
+import useAddPopupStore from "@/stores/addPopup";
 
 export default function Home() {
-  const [selectedPage, setSelectedPage] = useState<ItemTab>({
-    id: "1",
-    text: "Info",
-    icon: <AiOutlineInfoCircle color="#F59D0E" size={16} />,
-  });
+  const { menu, setMenu, setSelectedMenu, selectedMenu } = useMenuStore();
+  const { showPlusButton, setShowPlusButton } = useCirclePlusStore();
 
-  const [menus, setMenus] = useState([
-    {
-      id: "1",
-      text: "Info",
-      icon: <AiOutlineInfoCircle size={16} />,
-    },
-    {
-      id: "2",
-      text: "Details",
-      icon: <IoDocumentTextOutline size={16} />,
-    },
-    {
-      id: "3",
-      text: "Other",
-      icon: <IoDocumentTextOutline size={16} />,
-    },
-    {
-      id: "4",
-      text: "Ending",
-      icon: <IoIosCheckmarkCircleOutline size={16} />,
-    },
-  ]);
-
-  const [showPlusButton, setShowPlusButton] = useState(false);
+  const { showAddPopup } = useAddPopupStore();
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start border">
-        <div className="border w-4xl h-[480px] flex">
-            <div className="text-7xl">This is page of <h1 className="font-bold">{selectedPage.text}</h1></div>
-        </div>
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-[#faf2d9]">
+      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+        {selectedMenu && (
+          <div className="border w-4xl h-[480px] flex">
+            <div className="text-7xl">
+              This is page of <h1 className="font-bold">{selectedMenu.text}</h1>
+            </div>
+          </div>
+        )}
+        {!selectedMenu && (
+          <div className="flex flex-col items-center gap-4">
+            <div className="text-2xl font-bold">Welcome to Fillout</div>
+            <div className="text-lg text-gray-600 mb-20">
+              Please click &quot;Add Page&quot; below to get started
+            </div>
+            <HiChevronDoubleDown size={64} className="text-gray-300" />
+          </div>
+        )}
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center">
-        <DraggableList
-          items={menus}
-          onReorder={setMenus}
-          gap="gap-1"
-          className="relative"
-        >
-          {(item, index) => (
-            <>
-              <SortableItem
-                id={item.id}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedPage(item);
-                }}
-              >
-                <CardStepPopup
-                  text={item.text}
-                  leftIcon={item.icon}
-                  isSelected={selectedPage.id === item.id}
-                />
-              </SortableItem>
-
-              {index < menus.length - 1 && (
-                <div className="relative">
-                  <LineDashed
-                    className={clsx(
-                      index === 1 && showPlusButton ? "min-w-10" : "min-w-5"
-                    )}
-                    onMouseEnter={() => setShowPlusButton(index === 1)}
+        {menu.length > 0 && (
+          <DraggableList
+            items={menu}
+            onReorder={setMenu}
+            gap="gap-1"
+            className="relative"
+          >
+            {(item, index) => (
+              <>
+                <SortableItem
+                  id={item.id}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedMenu(item);
+                  }}
+                >
+                  <CardStepPopup
+                    text={item.text}
+                    leftIcon={item.icon}
+                    isSelected={selectedMenu?.id === item.id}
                   />
-                  {index === 1 && showPlusButton && (
-                    <div
-                      className="bg-white z-50 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                      onMouseLeave={() => setShowPlusButton(false)}
-                    >
-                      <CircleAdd />
-                    </div>
-                  )}
-                </div>
-              )}
-            </>
-          )}
-        </DraggableList>
-        <LineDashed />
+                </SortableItem>
+
+                {index < menu.length - 1 && (
+                  <div
+                    className="relative"
+                    onMouseEnter={() =>
+                      (menu.length === 2
+                        ? index === 0
+                        : index === Math.floor(menu.length / 2)) &&
+                      setShowPlusButton(true)
+                    }
+                    onMouseLeave={() => {
+                      if (!showAddPopup) {
+                        setShowPlusButton(false);
+                      }
+                    }}
+                  >
+                    <LineDashed
+                      className={clsx(
+                        (menu.length === 2
+                          ? index === 0
+                          : index === Math.floor(menu.length / 2)) &&
+                          showPlusButton
+                          ? "min-w-10"
+                          : "min-w-5"
+                      )}
+                    />
+                    {(menu.length === 2
+                      ? index === 0
+                      : index === Math.floor(menu.length / 2)) &&
+                      showPlusButton && (
+                        <div className="z-50 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                          <CircleAdd />
+                        </div>
+                      )}
+                  </div>
+                )}
+              </>
+            )}
+          </DraggableList>
+        )}
+        {menu.length > 0 && <LineDashed />}
         <CardAdd />
       </footer>
     </div>

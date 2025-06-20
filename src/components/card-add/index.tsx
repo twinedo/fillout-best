@@ -2,6 +2,7 @@ import { FiPlus } from "react-icons/fi";
 import { Popup } from "../popup";
 import { useState } from "react";
 import { PopupNewPage } from "../popup-new-page";
+import useCirclePlusStore from "@/stores/circlePlus";
 
 export const CardAdd = () => {
   const baseClasses = `
@@ -9,20 +10,31 @@ export const CardAdd = () => {
     transition-all duration-200 ease-in-out
   `;
 
-  const [isShowPopup, setIsShowPopup] = useState(false)
+  const [isShowPopup, setIsShowPopup] = useState(false);
+  const setShowPlusButton = useCirclePlusStore(
+    (state) => state.setShowPlusButton
+  );
 
   return (
     <Popup
       position="top"
       isShowPopup={isShowPopup}
       mainComponent={
-        <div className={baseClasses} onClick={() => setIsShowPopup(!isShowPopup)}>
+        <div
+          className={baseClasses}
+          onClick={() => setIsShowPopup(!isShowPopup)}
+        >
           <FiPlus size={16} />
           <div className="font-medium">Add page</div>
         </div>
       }
     >
-      <PopupNewPage />
+      <PopupNewPage
+        onClose={() => {
+          setIsShowPopup(false);
+          setShowPlusButton(false);
+        }}
+      />
     </Popup>
   );
 };

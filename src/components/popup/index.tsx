@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { ReactNode } from "react";
+import { ComponentPropsWithRef, ReactNode } from "react";
 
 type Position = "top" | "bottom" | "left" | "right";
 
@@ -8,13 +8,13 @@ type PopupProps = {
   children: ReactNode;
   position?: Position;
   isShowPopup?: boolean;
-};
+} & ComponentPropsWithRef<"div">;
 
 const POSITION_CLASSES: Record<Position, string> = {
   top: "bottom-[calc(100%+10px)] left-0",
   bottom: "top-[calc(100%+10px)] left-0",
   left: "right-[calc(100%+10px)] top-1/2 -translate-y-1/2",
-  right: "left-[calc(100%+10px)] top-1/2 -translate-y-1/2",
+  right: "left-[calc(100%+30px)] top-1/2 -translate-y-1/2",
 };
 
 export const Popup = ({
