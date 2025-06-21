@@ -24,6 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" href="https://build.fillout.com/favicon.ico" sizes="any" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
