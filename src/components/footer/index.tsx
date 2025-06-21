@@ -13,8 +13,11 @@ export const Footer = () => {
   const { showPlusButton, setShowPlusButton } = useCirclePlusStore();
   const { showAddPopup } = useAddPopupStore();
 
-  const isMiddleIndex = (index: number) => 
-    menu.length === 2 ? index === 0 : index === Math.floor(menu.length / 2);
+  const shouldShowAddButton = (index: number) => {
+    if (menu.length <= 1) return false;
+    if (menu.length % 2 === 1) return index === Math.floor(menu.length / 2);
+    return index === (menu.length / 2) - 1;
+  };
 
   return (
     <footer className="row-start-3 flex flex-wrap items-center justify-center">
@@ -22,10 +25,13 @@ export const Footer = () => {
         <DraggableList items={menu} onReorder={setMenu} gap="gap-1" className="relative">
           {(item, index) => (
             <>
-              <SortableItem id={item.id} onClick={(e) => {
-                e.stopPropagation();
-                setSelectedMenu(item);
-              }}>
+              <SortableItem 
+                id={item.id} 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedMenu(item);
+                }}
+              >
                 <CardStepPopup
                   text={item.text}
                   leftIconKey={item.iconKey}
@@ -36,11 +42,13 @@ export const Footer = () => {
               {index < menu.length - 1 && (
                 <div
                   className="relative"
-                  onMouseEnter={() => isMiddleIndex(index) && setShowPlusButton(true)}
+                  onMouseEnter={() => shouldShowAddButton(index) && setShowPlusButton(true)}
                   onMouseLeave={() => !showAddPopup && setShowPlusButton(false)}
                 >
-                  <LineDashed className={clsx(isMiddleIndex(index) && showPlusButton ? "min-w-10" : "min-w-5")} />
-                  {isMiddleIndex(index) && showPlusButton && (
+                  <LineDashed className={clsx(
+                    shouldShowAddButton(index) && showPlusButton ? "min-w-10" : "min-w-5"
+                  )} />
+                  {shouldShowAddButton(index) && showPlusButton && (
                     <div className="z-50 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                       <CircleAdd />
                     </div>
