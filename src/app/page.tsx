@@ -1,5 +1,11 @@
 "use client";
-import { CardAdd, CardStepPopup, CircleAdd, LineDashed } from "@/components";
+import {
+  CardAdd,
+  CardStepPopup,
+  CheckPreferences,
+  CircleAdd,
+  LineDashed,
+} from "@/components";
 import clsx from "clsx";
 import { DraggableList } from "@/components/dnd/draggable-list";
 import { SortableItem } from "@/components/dnd/sortable-item";
@@ -7,17 +13,9 @@ import { HiChevronDoubleDown } from "react-icons/hi";
 import useMenuStore from "@/stores/menuStore";
 import useCirclePlusStore from "@/stores/circlePlus";
 import useAddPopupStore from "@/stores/addPopup";
-import { TbSquareDashed, TbSquareCheckFilled } from "react-icons/tb";
 
 export default function Home() {
-  const {
-    menu,
-    setMenu,
-    setSelectedMenu,
-    selectedMenu,
-    savePreference,
-    toggleSavePreference,
-  } = useMenuStore();
+  const { menu, setMenu, setSelectedMenu, selectedMenu } = useMenuStore();
   const { showPlusButton, setShowPlusButton } = useCirclePlusStore();
 
   const { showAddPopup } = useAddPopupStore();
@@ -108,29 +106,7 @@ export default function Home() {
         {menu.length > 0 && <LineDashed />}
         <div className="flex flex-row items-center gap-x-3">
           <CardAdd />
-          {menu.length > 0 && (
-            <div className="flex flex-row items-center gap-x-3  text-sm">
-              {savePreference ? (
-                <TbSquareCheckFilled
-                  size={16}
-                  color="black"
-                  onClick={() => toggleSavePreference(false)}
-                />
-              ) : (
-                <TbSquareDashed
-                  size={16}
-                  color="#9DA4B2"
-                  onClick={() => toggleSavePreference(true)}
-                />
-              )}
-              <span
-                className="cursor-pointer hover:text-blue-500"
-                onClick={() => toggleSavePreference(!savePreference)}
-              >
-                Save menu preference
-              </span>
-            </div>
-          )}
+          {menu.length > 0 && <CheckPreferences />}
         </div>
       </footer>
     </div>
