@@ -1,0 +1,51 @@
+export const dataPopupNewPages = [
+    {
+      id: "1",
+      iconKey: 'form',
+      text: "Form",
+      subtitle: "Page to collect user input",
+      isShowPopup: false,
+    },
+    {
+      id: "2",
+      iconKey: 'cover',
+      text: "Cover",
+      subtitle: "Welcome users to your form",
+      isShowPopup: false,
+    },
+    {
+      id: "3",
+      iconKey: "ending",
+      text: "Ending",
+      subtitle: "Show a thank you page or redirect users",
+      isShowPopup: false,
+    },
+    {
+      id: "4",
+      iconKey: 'review',
+      text: "Review",
+      subtitle: "Let Users Review their submission",
+      isShowPopup: false,
+    },
+    {
+      id: "5",
+      iconKey: 'payment',
+      text: "Payment",
+      subtitle: "Collect payment with Stripe",
+      isShowPopup: false,
+    },
+    {
+      id: "6",
+      iconKey: 'login',
+      text: "Login",
+      subtitle: "Let Users login with email, password or SSO",
+      isShowPopup: false,
+    },
+    {
+      id: "7",
+      iconKey: 'scheduling',
+      text: "Scheduling",
+      subtitle: "Book meeting on your calendar",
+      isShowPopup: false,
+    },
+  ]

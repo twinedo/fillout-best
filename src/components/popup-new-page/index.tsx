@@ -1,10 +1,11 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 import { Popup } from "../popup";
 import { PopupInputFormName } from "../popup-input-form-name";
-import useMenuStore from "@/stores/menuStore";
+import {useMenuStore} from "@/stores";
 import { v4 as uuidv4 } from 'uuid';
 import { iconMap } from "@/assets/icons";
+import { dataPopupNewPages } from "@/utils/constants";
 
 type PopupNewPageProps = {
   onClose?: () => void;
@@ -14,57 +15,7 @@ export const PopupNewPage = (props: PopupNewPageProps) => {
   const { onClose } = props;
   const setMenu = useMenuStore((state) => state.setMenu)
   const menu = useMenuStore((state) => state.menu)
-  const [optionMenu, setOptionMenu] = useState([
-    {
-      id: "1",
-      iconKey: 'form',
-      text: "Form",
-      subtitle: "Page to collect user input",
-      isShowPopup: false,
-    },
-    {
-      id: "2",
-      iconKey: 'cover',
-      text: "Cover",
-      subtitle: "Welcome users to your form",
-      isShowPopup: false,
-    },
-    {
-      id: "3",
-      iconKey: "ending",
-      text: "Ending",
-      subtitle: "Show a thank you page or redirect users",
-      isShowPopup: false,
-    },
-    {
-      id: "4",
-      iconKey: 'review',
-      text: "Review",
-      subtitle: "Let Users Review their submission",
-      isShowPopup: false,
-    },
-    {
-      id: "5",
-      iconKey: 'payment',
-      text: "Payment",
-      subtitle: "Collect payment with Stripe",
-      isShowPopup: false,
-    },
-    {
-      id: "6",
-      iconKey: 'login',
-      text: "Login",
-      subtitle: "Let Users login with email, password or SSO",
-      isShowPopup: false,
-    },
-    {
-      id: "7",
-      iconKey: 'scheduling',
-      text: "Scheduling",
-      subtitle: "Book meeting on your calendar",
-      isShowPopup: false,
-    },
-  ]);
+  const [optionMenu, setOptionMenu] = useState(dataPopupNewPages);
 
   const onClickItem = (index: number) => {
     const updated = optionMenu.map((item, i) => ({

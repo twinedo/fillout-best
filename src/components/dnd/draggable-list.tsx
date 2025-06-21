@@ -1,4 +1,3 @@
-// DraggableList.tsx
 'use client'
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core'
 import { SortableContext, arrayMove, horizontalListSortingStrategy, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
@@ -22,7 +21,6 @@ export function DraggableList<T extends { id: string }>({
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        // Require a small movement before dragging starts
         distance: 3,
       },
     }),

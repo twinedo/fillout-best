@@ -2,7 +2,7 @@ import { FiPlus } from "react-icons/fi";
 import { Popup } from "../popup";
 import { useState } from "react";
 import { PopupNewPage } from "../popup-new-page";
-import useCirclePlusStore from "@/stores/circlePlus";
+import {useCirclePlusStore} from "@/stores";
 
 export const CardAdd = () => {
   const baseClasses = `

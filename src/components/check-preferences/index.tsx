@@ -1,4 +1,4 @@
-import useMenuStore from "@/stores/menuStore";
+import {useMenuStore} from "@/stores";
 import { TbSquareCheckFilled, TbSquareDashed } from "react-icons/tb";
 
 export const CheckPreferences = () => {

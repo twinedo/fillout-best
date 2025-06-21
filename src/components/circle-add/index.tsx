@@ -1,19 +1,16 @@
-import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { Popup } from "../popup";
 import { PopupNewPage } from "../popup-new-page";
-import useCirclePlusStore from "@/stores/circlePlus";
-import useAddPopupStore from "@/stores/addPopup";
+import {useAddPopupStore, useCirclePlusStore} from "@/stores";
 
 export const CircleAdd = () => {
-  const {showAddPopup, setShowAddPopup} = useAddPopupStore();
-  const [isShowPopup, setIsShowPopup] = useState(false);
+  const { showAddPopup, setShowAddPopup } = useAddPopupStore();
   const setShowPlusButton = useCirclePlusStore(
     (state) => state.setShowPlusButton
   );
 
-  const baseClasses = "flex cursor-pointer w-4 h-4 rounded-full border bg-white border-[#E1E1E1] flex justify-center items-center border"
-  // console.log("CircleAdd rendered", showAddPopup);
+  const baseClasses =
+    "flex cursor-pointer w-4 h-4 rounded-full border bg-white border-[#E1E1E1] flex justify-center items-center border";
 
   return (
     <Popup
@@ -22,11 +19,7 @@ export const CircleAdd = () => {
       mainComponent={
         <div
           className={baseClasses}
-          onClick={() => {
-            // setShowAddPopup(!showAddPopup)
-            setShowAddPopup(!showAddPopup);
-          }}
-          // {...props}
+          onClick={() => setShowAddPopup(!showAddPopup)}
         >
           <FiPlus size={8} color="black" />
         </div>

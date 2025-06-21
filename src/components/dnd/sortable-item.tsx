@@ -1,4 +1,3 @@
-// SortableItem.tsx
 'use client'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
@@ -31,7 +30,6 @@ export function SortableItem({
   }
 
   const handleClick = (e: MouseEvent) => {
-    // Only trigger onClick if we didn't just drag
     if (!isDragging && onClick) {
       onClick(e)
     }
